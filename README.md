@@ -1,2 +1,2 @@
-# vdito-blazor
-The Vditor component for Blazor
+# VditorBlazor
+Vditor 编辑器的 Blazor 版本
