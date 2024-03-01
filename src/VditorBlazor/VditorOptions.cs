@@ -6,6 +6,10 @@
 public class VditorOptions
 {
     /// <summary>
+    /// 自动渲染编辑器。
+    /// </summary>
+    public bool AutoInitialize { get; set; } = true;
+    /// <summary>
     /// 编辑器主题。默认 <see cref="Theme.Classic"/>。
     /// </summary>
     public Theme Theme { get; set; } = Theme.Classic;

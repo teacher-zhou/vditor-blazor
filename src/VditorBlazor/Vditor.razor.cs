@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
@@ -9,7 +8,7 @@ namespace VditorBlazor;
 partial class Vditor
 {
 
-    bool _isRendered;
+    private bool _isInitialized;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [Inject] IOptions<VditorOptions> GlobalOptions { get; set; }
@@ -22,7 +21,8 @@ partial class Vditor
     /// <summary>
     /// 要绑定的 markdown 字符串。
     /// </summary>
-    [Parameter] public string? Value { get; set; }
+    [Parameter]
+    public string? Value { get; set; }
     /// <summary>
     /// 当绑定值文本改变时触发的事件。
     /// </summary>
@@ -32,17 +32,20 @@ partial class Vditor
     /// </summary>
     [Parameter] public Expression<Func<string?>>? ValueExpression { get; set; }
 
-    public bool HasRenderCompleted => _isRendered;
 
     protected override void OnInitialized()
     {
         Options ??= GlobalOptions.Value;
     }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await CreateVditorAsync();
+            if (Options.AutoInitialize)
+            {
+                await InitializeAsync();
+            }
         }
     }
 }

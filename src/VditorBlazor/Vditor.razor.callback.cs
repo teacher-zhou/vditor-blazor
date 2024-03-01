@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace VditorBlazor;
 
-partial class Vditor : IAsyncDisposable
+partial class Vditor
 {
 
     [Inject] IJSRuntime JS { get; set; }
@@ -12,12 +12,14 @@ partial class Vditor : IAsyncDisposable
     ElementReference? _refEditor;
     IJSObjectReference _vditor;
 
-    async ValueTask CreateVditorAsync()
+    /// <summary>
+    /// 初始化编辑器。
+    /// </summary>
+    public async ValueTask InitializeAsync()
     {
-        if (!_isRendered)
+        if (!_isInitialized)
         {
             _vditor = await JS.InvokeAsync<IJSObjectReference>("vditorBlazor.createVditor", _refEditor, DotNetObjectReference.Create(this), AdjectOptions());
-            _isRendered = true;
         }
 
         IEnumerable<KeyValuePair<string, object>>? AdjectOptions()
@@ -105,14 +107,20 @@ partial class Vditor : IAsyncDisposable
     /// <summary>
     /// 销毁编辑器。
     /// </summary>
-    public ValueTask DisposeAsync() => _vditor.InvokeVoidAsync("dispose");
+    public async ValueTask DisposeAsync()
+    {
+        if (_vditor is not null)
+        {
+          await  _vditor.InvokeVoidAsync("dispose");
+        }
+    }
 
 
     #region JS Callback
     [JSInvokable("invokeRendered")]
     public Task JSInvokeRenderedAsync()
     {
-        _isRendered = true;
+        _isInitialized = true;
         Options.OnRendered?.Invoke();
         return Task.CompletedTask;
     }
