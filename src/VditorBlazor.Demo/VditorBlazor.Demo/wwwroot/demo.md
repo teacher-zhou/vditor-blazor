@@ -1,9 +1,41 @@
-Vditor 是一款**所见即所得**编辑器，支持 *Markdown*。
+## `VditorBlazor` 基于 Vditor 封装的支持 Markdown 编辑器
 
-* 不熟悉 Markdown 可使用工具栏或快捷键进行排版
-* 熟悉 Markdown 可直接排版，也可切换为分屏预览
+1. 安装包
+ 
+`> Install-Package VditorBlazor`
 
-更多细节和用法请参考 [Vditor - 浏览器端的 Markdown 编辑器](https://ld246.com/article/1549638745630)，同时也欢迎向我们提出建议或报告问题，谢谢 ❤️
+2. 添加服务
+
+```cs
+builder.Services.AddVditor(options => {
+ //... 全局配置
+})
+```
+
+3. 引用命名空间
+
+`@using VditorBlazor`
+
+4. 使用控件
+
+```html
+<!--全局配置-->
+<Vditor @bind-Value="Content" />
+
+<!--局部配置-->
+<Vditor @bind-Value="Content" Configure="@(options => options.Theme = Dark)" />
+
+@code{
+	[Inject] HttpClient Client { get; set; }
+
+	string? Content { get; set; } = "Hello World!!!";
+
+	protected override async Task OnInitializedAsync()
+	{
+		Content = await Client.GetStringAsync("demo.md");
+	}
+}
+```
 
 ## 教程
 
@@ -94,9 +126,9 @@ func main() {
 ```java
 public class HelloWorld {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+	}
 
 }
 ```
@@ -109,8 +141,8 @@ public class HelloWorld {
 
 - Java
   - Spring
-    - IoC
-    - AOP
+	- IoC
+	- AOP
 - Go
   - gofmt
   - Wide
@@ -179,8 +211,8 @@ $$
 \frac{1}{
   \Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{
   \frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {
-    1+\frac{e^{-6\pi}}
-    {1+\frac{e^{-8\pi}}{1+\cdots}}
+	1+\frac{e^{-6\pi}}
+	{1+\frac{e^{-8\pi}}{1+\cdots}}
   }
 }
 $$
@@ -197,21 +229,21 @@ $$
   - 普通内容
   - 提及用户
   - 表情符号 Emoji
-    - 一些表情例子
+	- 一些表情例子
   - 大标题 - Heading 3
-    - Heading 4
-      - Heading 5
-        - Heading 6
+	- Heading 4
+	  - Heading 5
+		- Heading 6
   - 图片
   - 代码块
-    - 普通
-    - 语法高亮支持
-      - 演示 Go 代码高亮
-      - 演示 Java 高亮
+	- 普通
+	- 语法高亮支持
+	  - 演示 Go 代码高亮
+	  - 演示 Java 高亮
   - 有序、无序、任务列表
-    - 无序列表
-    - 有序列表
-    - 任务列表
+	- 无序列表
+	- 有序列表
+	- 任务列表
   - 表格
   - 隐藏细节
   - 段落
@@ -233,40 +265,40 @@ $$
 
 ```mermaid
 graph TB
-    c1-->a2
-    subgraph one
-    a1-->a2
-    end
-    subgraph two
-    b1-->b2
-    end
-    subgraph three
-    c1-->c2
-    end
+	c1-->a2
+	subgraph one
+	a1-->a2
+	end
+	subgraph two
+	b1-->b2
+	end
+	subgraph three
+	c1-->c2
+	end
 ```
 
 ### 时序图
 
 ```mermaid
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    loop Every minute
-        John-->>Alice: Great!
-    end
+	Alice->>John: Hello John, how are you?
+	loop Every minute
+		John-->>Alice: Great!
+	end
 ```
 
 ### 甘特图
 
 ```mermaid
 gantt
-    title A Gantt Diagram
-    dateFormat  YYYY-MM-DD
-    section Section
-    A task           :a1, 2019-01-01, 30d
-    Another task     :after a1  , 20d
-    section Another
-    Task in sec      :2019-01-12  , 12d
-    another task      : 24d
+	title A Gantt Diagram
+	dateFormat  YYYY-MM-DD
+	section Section
+	A task           :a1, 2019-01-01, 30d
+	Another task     :after a1  , 20d
+	section Another
+	Task in sec      :2019-01-12  , 12d
+	another task      : 24d
 ```
 
 ### 图表
@@ -277,26 +309,26 @@ gantt
   "tooltip": { "trigger": "axis", "axisPointer": { "lineStyle": { "width": 0 } } },
   "legend": { "data": ["帖子", "用户", "回帖"] },
   "xAxis": [{
-      "type": "category",
-      "boundaryGap": false,
-      "data": ["2019-05-08","2019-05-09","2019-05-10","2019-05-11","2019-05-12","2019-05-13","2019-05-14","2019-05-15","2019-05-16","2019-05-17","2019-05-18","2019-05-19","2019-05-20","2019-05-21","2019-05-22","2019-05-23","2019-05-24","2019-05-25","2019-05-26","2019-05-27","2019-05-28","2019-05-29","2019-05-30","2019-05-31","2019-06-01","2019-06-02","2019-06-03","2019-06-04","2019-06-05","2019-06-06","2019-06-07"],
-      "axisTick": { "show": false },
-      "axisLine": { "show": false }
+	  "type": "category",
+	  "boundaryGap": false,
+	  "data": ["2019-05-08","2019-05-09","2019-05-10","2019-05-11","2019-05-12","2019-05-13","2019-05-14","2019-05-15","2019-05-16","2019-05-17","2019-05-18","2019-05-19","2019-05-20","2019-05-21","2019-05-22","2019-05-23","2019-05-24","2019-05-25","2019-05-26","2019-05-27","2019-05-28","2019-05-29","2019-05-30","2019-05-31","2019-06-01","2019-06-02","2019-06-03","2019-06-04","2019-06-05","2019-06-06","2019-06-07"],
+	  "axisTick": { "show": false },
+	  "axisLine": { "show": false }
   }],
   "yAxis": [{ "type": "value", "axisTick": { "show": false }, "axisLine": { "show": false }, "splitLine": { "lineStyle": { "color": "rgba(0, 0, 0, .38)", "type": "dashed" } } }],
   "series": [
-    {
-      "name": "帖子", "type": "line", "smooth": true, "itemStyle": { "color": "#d23f31" }, "areaStyle": { "normal": {} }, "z": 3,
-      "data": ["18","14","22","9","7","18","10","12","13","16","6","9","15","15","12","15","8","14","9","10","29","22","14","22","9","10","15","9","9","15","0"]
-    },
-    {
-      "name": "用户", "type": "line", "smooth": true, "itemStyle": { "color": "#f1e05a" }, "areaStyle": { "normal": {} }, "z": 2,
-      "data": ["31","33","30","23","16","29","23","37","41","29","16","13","39","23","38","136","89","35","22","50","57","47","36","59","14","23","46","44","51","43","0"]
-    },
-    {
-      "name": "回帖", "type": "line", "smooth": true, "itemStyle": { "color": "#4285f4" }, "areaStyle": { "normal": {} }, "z": 1,
-      "data": ["35","42","73","15","43","58","55","35","46","87","36","15","44","76","130","73","50","20","21","54","48","73","60","89","26","27","70","63","55","37","0"]
-    }
+	{
+	  "name": "帖子", "type": "line", "smooth": true, "itemStyle": { "color": "#d23f31" }, "areaStyle": { "normal": {} }, "z": 3,
+	  "data": ["18","14","22","9","7","18","10","12","13","16","6","9","15","15","12","15","8","14","9","10","29","22","14","22","9","10","15","9","9","15","0"]
+	},
+	{
+	  "name": "用户", "type": "line", "smooth": true, "itemStyle": { "color": "#f1e05a" }, "areaStyle": { "normal": {} }, "z": 2,
+	  "data": ["31","33","30","23","16","29","23","37","41","29","16","13","39","23","38","136","89","35","22","50","57","47","36","59","14","23","46","44","51","43","0"]
+	},
+	{
+	  "name": "回帖", "type": "line", "smooth": true, "itemStyle": { "color": "#4285f4" }, "areaStyle": { "normal": {} }, "z": 1,
+	  "data": ["35","42","73","15","43","58","55","35","46","87","36","15","44","76","130","73","50","20","21","54","48","73","60","89","26","27","70","63","55","37","0"]
+	}
   ]
 }
 ```
@@ -325,19 +357,19 @@ K: Em
 
 ```graphviz
 digraph finite_state_machine {
-    rankdir=LR;
-    size="8,5"
-    node [shape = doublecircle]; S;
-    node [shape = point ]; qi
+	rankdir=LR;
+	size="8,5"
+	node [shape = doublecircle]; S;
+	node [shape = point ]; qi
 
-    node [shape = circle];
-    qi -> S;
-    S  -> q1 [ label = "a" ];
-    S  -> S  [ label = "a" ];
-    q1 -> S  [ label = "a" ];
-    q1 -> q2 [ label = "ddb" ];
-    q2 -> q1 [ label = "b" ];
-    q2 -> q2 [ label = "b" ];
+	node [shape = circle];
+	qi -> S;
+	S  -> q1 [ label = "a" ];
+	S  -> S  [ label = "a" ];
+	q1 -> S  [ label = "a" ];
+	q1 -> q2 [ label = "ddb" ];
+	q2 -> q1 [ label = "b" ];
+	q2 -> q2 [ label = "b" ];
 }
 ```
 
@@ -365,30 +397,26 @@ https://v.qq.com/x/cover/zf2z0xpqcculhcz/y0016tj0qvh.html
 这里是一个脚注引用[^1]，这里是另一个脚注引用[^bignote]。
 
 [^1]: 第一个脚注定义。
-    
+	
 [^bignote]: 脚注定义可使用多段内容。
-    
-       缩进对齐的段落包含在这个脚注定义内。
-    
-       ```
-       可以使用代码块。
-       ```
-       还有其他行级排版语法，比如**加粗**和[链接](https://b3log.org)。
-    
+	
+	   缩进对齐的段落包含在这个脚注定义内。
+	
+	   ```
+	   可以使用代码块。
+	   ```
+	   还有其他行级排版语法，比如**加粗**和[链接](https://b3log.org)。
+	
 ```
 这里是一个脚注引用[^1]，这里是另一个脚注引用[^bignote]。
 [^1]: 第一个脚注定义。
 [^bignote]: 脚注定义可使用多段内容。
 
-    缩进对齐的段落包含在这个脚注定义内。
+	缩进对齐的段落包含在这个脚注定义内。
 
-    ```
-    可以使用代码块。
-    ```
+	```
+	可以使用代码块。
+	```
 
-    还有其他行级排版语法，比如**加粗**和[链接](https://b3log.org)。
+	还有其他行级排版语法，比如**加粗**和[链接](https://b3log.org)。
 ```
-
-## 快捷键
-
-我们的编辑器支持很多快捷键，具体请参考 [键盘快捷键](https://ld246.com/article/1474030007391)（或者按 "`?` "😼）

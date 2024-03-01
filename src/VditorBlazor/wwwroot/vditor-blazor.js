@@ -1,18 +1,19 @@
 window.vditorBlazor = window.vditorBlazor || {
-    createVditor: function (domRef, vditorDotNet, options) {
+    createVditor: function (domRef, dotNet, options) {
 
-        return new Vditor(domRef, {
+        let vditor = new Vditor(domRef, {
             ...options,
             cache: {
                 enable: false
             },
-            after: () => vditorDotNet.invokeMethodAsync('invokeRendered'),
-            input: (value) => vditorDotNet.invokeMethodAsync('invokeInput', value),
-            focus: (value) => vditorDotNet.invokeMethodAsync('invokeFocus', value),
-            blur: (value) => vditorDotNet.invokeMethodAsync('invokeBlur', value),
-            esc: (value) => vditorDotNet.invokeMethodAsync('invokeEscape', value),
-            select: (value) => vditorDotNet.invokeMethodAsync('invokeSelect', value),
-            ctrlEnter: (value) => vditorDotNet.invokeMethodAsync('invokeCtrlEnter', value),
+            after: () => dotNet.invokeMethodAsync('invokeRendered'),
+            input: (value) => dotNet.invokeMethodAsync('invokeInput', value),
+            focus: (value) => dotNet.invokeMethodAsync('invokeFocus', value),
+            blur: (value) => dotNet.invokeMethodAsync('invokeBlur', value),
+            esc: (value) => dotNet.invokeMethodAsync('invokeEscape', value),
+            select: (value) => dotNet.invokeMethodAsync('invokeSelect', value),
+            ctrlEnter: (value) => dotNet.invokeMethodAsync('invokeCtrlEnter', value),
         });
+        return vditor;
     },
 };

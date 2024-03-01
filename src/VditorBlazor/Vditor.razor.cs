@@ -14,8 +14,10 @@ partial class Vditor
     [Inject] IOptions<VditorOptions> GlobalOptions { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    [Parameter]
-    public VditorOptions Options { get; set; }
+    /// <summary>
+    /// 自定义配置当前编辑器。
+    /// </summary>
+    [Parameter] public Action<VditorOptions>? Configure { get; set; }
 
 
     /// <summary>
@@ -32,10 +34,14 @@ partial class Vditor
     /// </summary>
     [Parameter] public Expression<Func<string?>>? ValueExpression { get; set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    VditorOptions Options { get; set; } = new();
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     protected override void OnInitialized()
     {
         Options ??= GlobalOptions.Value;
+        Configure?.Invoke(Options);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
