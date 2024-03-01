@@ -1,12 +1,14 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Demo</PageTitle>
 
-
-
-<Vditor @bind-Value="content"/>
-
-
-@code{
-    string? content="Hello World!!!";
+<Vditor @bind-Value="@Content" @ref="_refVditor"/>
+@if(_refVditor is not null )
+{
+    @:渲染结果：@_refVditor.HasRenderCompleted
 }
+
+<button class="btn btn-primary" @onclick="Click">Render</button>
+<button class="btn btn-success" @onclick="Set">Set</button>
+
+@(new MarkupString(Html))
