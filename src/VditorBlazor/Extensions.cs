@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace VditorBlazor;
 
-internal static class Extensions
+public static class Extensions
 {
     public static string? GetDefaultValueAsString(this Enum @enum)
     {
